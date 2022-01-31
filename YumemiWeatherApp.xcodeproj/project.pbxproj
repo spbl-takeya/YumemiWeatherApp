@@ -17,6 +17,7 @@
 		B888A0F327A7768F0024592C /* YumemiWeatherAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B888A0F227A7768F0024592C /* YumemiWeatherAppUITests.swift */; };
 		B888A0F527A7768F0024592C /* YumemiWeatherAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B888A0F427A7768F0024592C /* YumemiWeatherAppUITestsLaunchTests.swift */; };
 		B888A10327A7798F0024592C /* YumemiWeather in Frameworks */ = {isa = PBXBuildFile; productRef = B888A10227A7798F0024592C /* YumemiWeather */; };
+		B888A10727A77E1F0024592C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B888A10627A77E1F0024592C /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		B888A0EE27A7768F0024592C /* YumemiWeatherAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YumemiWeatherAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B888A0F227A7768F0024592C /* YumemiWeatherAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YumemiWeatherAppUITests.swift; sourceTree = "<group>"; };
 		B888A0F427A7768F0024592C /* YumemiWeatherAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YumemiWeatherAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B888A10627A77E1F0024592C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		B888A0C527A7768C0024592C = {
 			isa = PBXGroup;
 			children = (
+				B888A10627A77E1F0024592C /* README.md */,
 				B888A0D027A7768C0024592C /* YumemiWeatherApp */,
 				B888A0E727A7768F0024592C /* YumemiWeatherAppTests */,
 				B888A0F127A7768F0024592C /* YumemiWeatherAppUITests */,
@@ -241,6 +244,7 @@
 			files = (
 				B888A0DE27A7768E0024592C /* LaunchScreen.storyboard in Resources */,
 				B888A0DB27A7768E0024592C /* Assets.xcassets in Resources */,
+				B888A10727A77E1F0024592C /* README.md in Resources */,
 				B888A0D927A7768C0024592C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

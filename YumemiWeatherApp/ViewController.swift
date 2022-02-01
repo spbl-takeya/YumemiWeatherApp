@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     }
 
 
+    @IBOutlet weak var weatherImage: UIImageView!
+
     @IBAction func reloadButton(_ sender: Any) {
         let weatherString = YumemiWeather.fetchWeather()
         print(weatherString)

@@ -80,6 +80,9 @@
                             <constraint firstItem="U2u-I1-ugC" firstAttribute="top" secondItem="of1-yj-hYR" secondAttribute="bottom" constant="80" id="tM2-o0-TGa"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="weatherImage" destination="BBS-5d-8N8" id="Nqe-Vq-KzW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

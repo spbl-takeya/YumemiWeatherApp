@@ -15,5 +15,7 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func reloadButton(_ sender: Any) {
+    }
 }
 

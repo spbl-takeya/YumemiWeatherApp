@@ -20,7 +20,7 @@ class ViewController: UIViewController {
 
     @IBAction func reloadButton(_ sender: Any) {
         let weatherString = YumemiWeather.fetchWeather()
-        print(weatherString)
+        // print(weatherString)
         weatherImage.image = getImage(weather: weatherString)
     }
 

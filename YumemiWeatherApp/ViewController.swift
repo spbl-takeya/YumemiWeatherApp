@@ -25,22 +25,27 @@ class ViewController: UIViewController {
     @IBAction func reloadButton(_ sender: Any) {
         let weatherString = YumemiWeather.fetchWeather()
         print(weatherString)
-        weatherImage.image = UIImage(named: convertToImageName(weatherString: weatherString))
+        weatherImage.image = getImage(weather: weatherString)
     }
 
     // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
-    func convertToImageName(weatherString: String) -> String {
-        switch weatherString {
+    func getImage(weather: String) -> UIImage? {
+        switch weather {
         case kSunny:
-            return "sun"
+            var image = UIImage(named: "sun")
+            image = image?.withTintColor(.red)
+            return image!
         case kCloudy:
-            return "cloud"
+            var image = UIImage(named: "cloud")
+            image = image?.withTintColor(.gray)
+            return image!
         case kRainy:
-            return "umbrella"
+            var image = UIImage(named: "umbrella")
+            image = image?.withTintColor(.blue)
+            return image!
         default:
             // TODO: Optionalとか勉強した方がよさそう
-            return ""
+            return nil
         }
     }
 }
-

@@ -10,10 +10,6 @@ import YumemiWeather
 
 class ViewController: UIViewController {
 
-    let kSunny = "sunny"
-    let kCloudy = "cloudy"
-    let kRainy = "rainy"
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,15 +30,17 @@ class ViewController: UIViewController {
     /// - Returns: UIImageオブジェクト
     func getImage(weather: String) -> UIImage? {
         switch weather {
-        case kSunny:
+        // TODO: enumを導入してみたが、結局rawValueとの比較になっていてdefaultを削除できない
+        // (Codableの導入で直接enumに変換できるようになればenumで比較できてdefaultを削除できる?)
+        case Weather.sunny.rawValue:
             var image = UIImage(named: "sun")
             image = image?.withTintColor(.red)
             return image!
-        case kCloudy:
+        case Weather.cloudy.rawValue:
             var image = UIImage(named: "cloud")
             image = image?.withTintColor(.gray)
             return image!
-        case kRainy:
+        case Weather.rainy.rawValue:
             var image = UIImage(named: "umbrella")
             image = image?.withTintColor(.blue)
             return image!
@@ -51,4 +49,12 @@ class ViewController: UIViewController {
             return nil
         }
     }
+}
+
+// TODO: enumは単独のファイルなどに切り出した方がいいのか?
+/// 天気
+enum Weather: String {
+    case sunny = "sunny"
+    case cloudy = "cloudy"
+    case rainy = "rainy"
 }

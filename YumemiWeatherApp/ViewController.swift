@@ -29,6 +29,9 @@ class ViewController: UIViewController {
     }
 
     // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
+    /// 天気の画像を返す
+    /// - Parameter weather: 天気を示す文字列
+    /// - Returns: UIImageオブジェクト
     func getImage(weather: String) -> UIImage? {
         switch weather {
         case kSunny:

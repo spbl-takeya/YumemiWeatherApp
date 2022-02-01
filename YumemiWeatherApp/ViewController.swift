@@ -35,15 +35,15 @@ class ViewController: UIViewController {
         case Weather.sunny.rawValue:
             var image = UIImage(named: "sun")
             image = image?.withTintColor(.red)
-            return image!
+            return image
         case Weather.cloudy.rawValue:
             var image = UIImage(named: "cloud")
             image = image?.withTintColor(.gray)
-            return image!
+            return image
         case Weather.rainy.rawValue:
             var image = UIImage(named: "umbrella")
             image = image?.withTintColor(.blue)
-            return image!
+            return image
         default:
             // TODO: Optionalとか勉強した方がよさそう
             return nil

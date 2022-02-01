@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import YumemiWeather
 
 class ViewController: UIViewController {
 
@@ -16,6 +17,8 @@ class ViewController: UIViewController {
 
 
     @IBAction func reloadButton(_ sender: Any) {
+        let weatherString = YumemiWeather.fetchWeather()
+        print(weatherString)
     }
 }
 

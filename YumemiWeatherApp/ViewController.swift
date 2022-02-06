@@ -23,7 +23,11 @@ class ViewController: UIViewController {
             let weatherString = try YumemiWeather.fetchWeather(at: "tokyo")
             print(weatherString)
             weatherImage.image = getImage(weather: weatherString)
+        } catch let weatherError as YumemiWeatherError {
+            let errorMessage = getErrorMessage(from: weatherError)
+            showErrorAlert(errorMessage: errorMessage)
         } catch {
+            // TODO: 例外は2種類のみなのでこのルートは書かなくていいと思ったが、書かないとエラーになる
             print("\(error)")
         }
     }
@@ -52,6 +56,47 @@ class ViewController: UIViewController {
             // TODO: Optionalとか勉強した方がよさそう
             return nil
         }
+    }
+
+    
+    /// YumemiのAPIから返されたエラーからエラーメッセージを取得する
+    /// - Parameter error: エラー
+    /// - Returns: エラーメッセージ
+    func getErrorMessage(from error: YumemiWeatherError) -> String {
+        switch(error) {
+        case .invalidParameterError:
+            //YumemiWeatherの実装をみると、JSON版APIでないと返されないっぽい
+            return "パラメーターが不正です。"
+        case .unknownError:
+            return "不明なエラーです。"
+        }
+    }
+
+    
+    /// エラ〜メッセージをアラート表示する
+    /// - Parameter errorMessage: エラーメッセージ
+    /// - Returns: なし
+    func showErrorAlert(errorMessage: String) -> Void {
+        let alertController: UIAlertController =
+                    UIAlertController(title: "天気情報の取得に失敗しました",
+                              message: errorMessage,
+                              preferredStyle: .alert)
+
+        // Default のaction
+        let defaultAction: UIAlertAction =
+                    UIAlertAction(title: "閉じる",
+                          style: .default
+//                          handler:{
+//                            (action:UIAlertAction!) -> Void in
+//                            // 処理
+//                          }
+                    )
+
+        // actionを追加
+        alertController.addAction(defaultAction)
+
+        // UIAlertControllerの起動
+        present(alertController, animated: true, completion: nil)
     }
 }
 

@@ -19,8 +19,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var weatherImage: UIImageView!
 
     @IBAction func reloadButton(_ sender: Any) {
-        let weatherString = YumemiWeather.fetchWeather()
-        // print(weatherString)
+        let weatherString = try! YumemiWeather.fetchWeather(at: "tokyo")
+        print(weatherString)
         weatherImage.image = getImage(weather: weatherString)
     }
 

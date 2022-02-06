@@ -19,9 +19,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var weatherImage: UIImageView!
 
     @IBAction func reloadButton(_ sender: Any) {
-        let weatherString = try! YumemiWeather.fetchWeather(at: "tokyo")
-        print(weatherString)
-        weatherImage.image = getImage(weather: weatherString)
+        do {
+            let weatherString = try YumemiWeather.fetchWeather(at: "tokyo")
+            print(weatherString)
+            weatherImage.image = getImage(weather: weatherString)
+        } catch {
+            print("\(error)")
+        }
     }
 
     // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく

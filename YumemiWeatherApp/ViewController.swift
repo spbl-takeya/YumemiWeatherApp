@@ -24,10 +24,12 @@ class ViewController: UIViewController {
             print(weatherString)
             weatherImage.image = getImage(weather: weatherString)
         } catch let weatherError as YumemiWeatherError {
+            //Recoverable error
             let errorMessage = getErrorMessage(from: weatherError)
             showErrorAlert(errorMessage: errorMessage)
         } catch {
             // TODO: 例外は2種類のみなのでこのルートは書かなくていいと思ったが、書かないとエラーになる
+            //Recoverable error
             print("\(error)")
         }
     }
@@ -73,7 +75,7 @@ class ViewController: UIViewController {
     }
 
     
-    /// エラ〜メッセージをアラート表示する
+    /// エラーメッセージをアラート表示する
     /// - Parameter errorMessage: エラーメッセージ
     /// - Returns: なし
     func showErrorAlert(errorMessage: String) -> Void {

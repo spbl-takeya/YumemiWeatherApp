@@ -17,6 +17,8 @@ class ViewController: UIViewController {
 
 
     @IBOutlet weak var weatherImage: UIImageView!
+    @IBOutlet weak var minTemperature: UILabel!
+    @IBOutlet weak var maxTemperature: UILabel!
 
     @IBAction func reloadButton(_ sender: Any) {
         do {
@@ -37,6 +39,8 @@ class ViewController: UIViewController {
 
             //Render
             weatherImage.image = getImage(weather: jsonObject["weather"] as! String)
+            minTemperature.text = String(jsonObject["min_temp"] as! Int)
+            maxTemperature.text = String(jsonObject["max_temp"] as! Int)
         } catch let weatherError as YumemiWeatherError {
             //Recoverable error
             let errorMessage = getErrorMessage(from: weatherError)

@@ -78,7 +78,7 @@ class ViewController: UIViewController {
     /// エラーメッセージをアラート表示する
     /// - Parameter errorMessage: エラーメッセージ
     /// - Returns: なし
-    func showErrorAlert(errorMessage: String) -> Void {
+    func showErrorAlert(errorMessage: String) {
         let alertController: UIAlertController =
                     UIAlertController(title: "天気情報の取得に失敗しました",
                               message: errorMessage,

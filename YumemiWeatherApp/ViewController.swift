@@ -37,9 +37,7 @@ class ViewController: UIViewController {
             let weatherReport = try JSONDecoder().decode(WeatherReport.self, from: data!)
 
             //Render
-            weatherImage.image = getImage(weather: weatherReport.weather.rawValue)
-            minTemperature.text = String(weatherReport.minTemp)
-            maxTemperature.text = String(weatherReport.maxTemp)
+            renderWeatherReport(weatherReport)
         } catch let weatherError as YumemiWeatherError {
             //Recoverable error
             let errorMessage = getErrorMessage(from: weatherError)
@@ -61,6 +59,16 @@ class ViewController: UIViewController {
             //Recoverable error
             print("\(error)")
         }
+    }
+
+
+    /// 天気予報を描画する
+    /// - Parameter json: 天気予報データ
+    /// - Returns: なし
+    func renderWeatherReport(_ weatherReport: WeatherReport) {
+        weatherImage.image = getImage(weather: weatherReport.weather.rawValue)
+        minTemperature.text = String(weatherReport.minTemp)
+        maxTemperature.text = String(weatherReport.maxTemp)
     }
 
     // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく

@@ -10,16 +10,18 @@ import YumemiWeather
 
 class ViewController: UIViewController {
 
+    // MARK: Properties
+    @IBOutlet weak var weatherImage: UIImageView!
+    @IBOutlet weak var minTemperature: UILabel!
+    @IBOutlet weak var maxTemperature: UILabel!
+
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
-    @IBOutlet weak var weatherImage: UIImageView!
-    @IBOutlet weak var minTemperature: UILabel!
-    @IBOutlet weak var maxTemperature: UILabel!
-
+    // MARK: IBAction
     @IBAction func reloadButton(_ sender: Any) {
         do {
             //Request: encode

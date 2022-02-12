@@ -35,12 +35,12 @@ class ViewController: UIViewController {
 
             //Response: decode
             let data: Data? = jsonResponseString.data(using: .utf8)
-            let jsonObject = try! JSONSerialization.jsonObject(with: data!, options: []) as! Dictionary<String, Any>
+            let weatherReport = try JSONDecoder().decode(WeatherReport.self, from: data!)
 
             //Render
-            weatherImage.image = getImage(weather: jsonObject["weather"] as! String)
-            minTemperature.text = String(jsonObject["min_temp"] as! Int)
-            maxTemperature.text = String(jsonObject["max_temp"] as! Int)
+            weatherImage.image = getImage(weather: weatherReport.weather.rawValue)
+            minTemperature.text = String(weatherReport.minTemp)
+            maxTemperature.text = String(weatherReport.maxTemp)
         } catch let weatherError as YumemiWeatherError {
             //Recoverable error
             let errorMessage = getErrorMessage(from: weatherError)
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
 
 // TODO: enumは単独のファイルなどに切り出した方がいいのか?
 /// 天気
-enum Weather: String {
+enum Weather: String, Codable {
     case sunny = "sunny"
     case cloudy = "cloudy"
     case rainy = "rainy"

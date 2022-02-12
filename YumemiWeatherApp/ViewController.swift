@@ -62,6 +62,7 @@ class ViewController: UIViewController {
         }
     }
 
+    // MARK: Methods
 
     /// 天気予報を描画する
     /// - Parameter json: 天気予報データ

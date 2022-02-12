@@ -22,12 +22,9 @@ class ViewController: UIViewController {
 
     @IBAction func reloadButton(_ sender: Any) {
         do {
-            //Request: params
-            let params = [
-                "area": "tokyo",
-                "date": "2020-04-01T12:00:00+09:00"
-            ]
-            let jsonData = try! JSONSerialization.data(withJSONObject: params, options: [])
+            //Request: encode
+            let params = FetchWeatherParam(area: "tokyo", date: "2020-04-01T12:00:00+09:00")
+            let jsonData = try! JSONEncoder().encode(params)
             let jsonString = String(bytes: jsonData, encoding: .utf8)!
 
             let jsonResponseString = try YumemiWeather.fetchWeather(jsonString)
@@ -90,7 +87,7 @@ class ViewController: UIViewController {
     func getErrorMessage(from error: YumemiWeatherError) -> String {
         switch(error) {
         case .invalidParameterError:
-            //YumemiWeatherの実装をみると、JSON版APIでないと返されないっぽい
+            //YumemiWeatherの実装をみると、JSON版APIでないと返されない
             return "パラメーターが不正です。"
         case .unknownError:
             return "不明なエラーです。"

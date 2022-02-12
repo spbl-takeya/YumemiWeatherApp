@@ -45,6 +45,11 @@ class ViewController: UIViewController {
             //Recoverable error
             let errorMessage = getErrorMessage(from: weatherError)
             showErrorAlert(errorMessage: errorMessage)
+        } catch is DecodingError {
+            //Recoverable error
+            //外部サービスのせいでアプリを終了させるのもおかしいと思うので Recoverable error とする
+            let errorMessage = "データをデコードできませんでした。"
+            showErrorAlert(errorMessage: errorMessage)
         } catch {
             // TODO: 例外は2種類のみなのでこのルートは書かなくていいと思ったが、書かないとエラーになる
             //Recoverable error

@@ -7,6 +7,13 @@
 
 import Foundation
 
+/// 天気
+enum Weather: String, Decodable {
+    case sunny = "sunny"
+    case cloudy = "cloudy"
+    case rainy = "rainy"
+}
+
 /// 天気予報データ
 struct WeatherReport: Decodable {
     let weather: Weather

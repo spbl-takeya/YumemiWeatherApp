@@ -134,11 +134,3 @@ class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
 }
-
-// TODO: enumは単独のファイルなどに切り出した方がいいのか?
-/// 天気
-enum Weather: String, Decodable {
-    case sunny = "sunny"
-    case cloudy = "cloudy"
-    case rainy = "rainy"
-}

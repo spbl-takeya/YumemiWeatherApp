@@ -52,6 +52,7 @@ class ViewController: UIViewController {
         } catch is DecodingError {
             //Recoverable error
             //外部サービスのせいでアプリを終了させるのもおかしいと思うので Recoverable error とする
+            //もしAPI側で enum の case が先行して追加された場合はこのルートでエラーを処理する
             let errorMessage = "データをデコードできませんでした。"
             showErrorAlert(errorMessage: errorMessage)
         } catch {
@@ -66,7 +67,7 @@ class ViewController: UIViewController {
     /// - Parameter json: 天気予報データ
     /// - Returns: なし
     func renderWeatherReport(_ weatherReport: WeatherReport) {
-        weatherImage.image = getImage(weather: weatherReport.weather.rawValue)
+        weatherImage.image = getImage(weather: weatherReport.weather)
         minTemperature.text = String(weatherReport.minTemp)
         maxTemperature.text = String(weatherReport.maxTemp)
     }
@@ -75,25 +76,20 @@ class ViewController: UIViewController {
     /// 天気の画像を返す
     /// - Parameter weather: 天気を示す文字列
     /// - Returns: UIImageオブジェクト
-    func getImage(weather: String) -> UIImage? {
+    func getImage(weather: Weather) -> UIImage? {
         switch weather {
-        // TODO: enumを導入してみたが、結局rawValueとの比較になっていてdefaultを削除できない
-        // (Codableの導入で直接enumに変換できるようになればenumで比較できてdefaultを削除できる?)
-        case Weather.sunny.rawValue:
+        case Weather.sunny:
             var image = UIImage(named: "sun")
             image = image?.withTintColor(.red)
             return image
-        case Weather.cloudy.rawValue:
+        case Weather.cloudy:
             var image = UIImage(named: "cloud")
             image = image?.withTintColor(.gray)
             return image
-        case Weather.rainy.rawValue:
+        case Weather.rainy:
             var image = UIImage(named: "umbrella")
             image = image?.withTintColor(.blue)
             return image
-        default:
-            // TODO: Optionalとか勉強した方がよさそう
-            return nil
         }
     }
 

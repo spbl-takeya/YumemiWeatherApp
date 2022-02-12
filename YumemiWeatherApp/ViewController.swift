@@ -42,6 +42,13 @@ class ViewController: UIViewController {
             //Recoverable error
             let errorMessage = getErrorMessage(from: weatherError)
             showErrorAlert(errorMessage: errorMessage)
+        } catch is EncodingError {
+            //Recoverable error?
+            //本アプリはリクエストパラメーターをアプリ内で生成しているので、エンコードエラーは Logic failure になると思うので、このルートを作るべきでないと思う
+            //※もしリクエストパラメーターの元データが外部サービスから取得しているのなら、アプリを終了させるのはおかしいと思うので Recoverable error にする
+            //今回は練習がてらルートを作ってみた
+            let errorMessage = "データをエンコードできませんでした。"
+            showErrorAlert(errorMessage: errorMessage)
         } catch is DecodingError {
             //Recoverable error
             //外部サービスのせいでアプリを終了させるのもおかしいと思うので Recoverable error とする

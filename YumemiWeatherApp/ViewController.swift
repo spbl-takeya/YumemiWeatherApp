@@ -73,11 +73,11 @@ class ViewController: UIViewController {
         maxTemperature.text = String(weatherReport.maxTemp)
     }
 
-    // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
     /// 天気の画像を返す
     /// - Parameter weather: 天気を示す文字列
     /// - Returns: UIImageオブジェクト
     func getImage(weather: Weather) -> UIImage? {
+        // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
         switch weather {
         case Weather.sunny:
             var image = UIImage(named: "sun")
@@ -93,7 +93,6 @@ class ViewController: UIViewController {
             return image
         }
     }
-
     
     /// YumemiのAPIから返されたエラーからエラーメッセージを取得する
     /// - Parameter error: エラー
@@ -108,7 +107,6 @@ class ViewController: UIViewController {
         }
     }
 
-    
     /// エラーメッセージをアラート表示する
     /// - Parameter errorMessage: エラーメッセージ
     /// - Returns: なし

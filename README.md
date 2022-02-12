@@ -19,7 +19,8 @@ https://qiita.com/watanave/items/1cefa5aae18f5141c426
     - ex. 整数→文字列の変換エラー
     - 戻り値を Optional にして nil でエラーを表現する
 - Recoverable error
-    - 原因ごとに対応
+    - 発生条件が明確でなく、原因ごとに対応
+        - Simple domain error と違ってエラーの種類を分ける
     - ex. ファイル入出力やネットワークのエラー
     - 関数側に `throws` をつけ、呼び出し側に `do-try-catch` をつける
 - Universal error

@@ -14,6 +14,12 @@ enum Weather: String, Decodable {
     case rainy = "rainy"
 }
 
+/// 天気情報取得のためのリクエストパラメーター
+struct FetchWeatherParam: Encodable {
+    let area: String
+    let date: String
+}
+
 /// 天気予報データ
 struct WeatherReport: Decodable {
     let weather: Weather

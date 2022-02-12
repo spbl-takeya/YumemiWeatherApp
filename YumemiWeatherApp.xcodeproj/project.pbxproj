@@ -19,6 +19,7 @@
 		B888A10327A7798F0024592C /* YumemiWeather in Frameworks */ = {isa = PBXBuildFile; productRef = B888A10227A7798F0024592C /* YumemiWeather */; };
 		B888A10727A77E1F0024592C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B888A10627A77E1F0024592C /* README.md */; };
 		B88DF79E27B75981001BFA2D /* WeatherReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88DF79D27B75981001BFA2D /* WeatherReport.swift */; };
+		B88DF7A027B7F625001BFA2D /* FetchWeatherParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88DF79F27B7F625001BFA2D /* FetchWeatherParam.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		B888A0F427A7768F0024592C /* YumemiWeatherAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YumemiWeatherAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B888A10627A77E1F0024592C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B88DF79D27B75981001BFA2D /* WeatherReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherReport.swift; sourceTree = "<group>"; };
+		B88DF79F27B7F625001BFA2D /* FetchWeatherParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchWeatherParam.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				B888A0D127A7768C0024592C /* AppDelegate.swift */,
 				B888A0D327A7768C0024592C /* SceneDelegate.swift */,
 				B888A0D527A7768C0024592C /* ViewController.swift */,
+				B88DF79F27B7F625001BFA2D /* FetchWeatherParam.swift */,
 				B88DF79D27B75981001BFA2D /* WeatherReport.swift */,
 				B888A0D727A7768C0024592C /* Main.storyboard */,
 				B888A0DA27A7768E0024592C /* Assets.xcassets */,
@@ -273,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B88DF7A027B7F625001BFA2D /* FetchWeatherParam.swift in Sources */,
 				B88DF79E27B75981001BFA2D /* WeatherReport.swift in Sources */,
 				B888A0D627A7768C0024592C /* ViewController.swift in Sources */,
 				B888A0D227A7768C0024592C /* AppDelegate.swift in Sources */,

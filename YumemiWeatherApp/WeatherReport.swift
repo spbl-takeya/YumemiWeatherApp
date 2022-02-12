@@ -8,7 +8,7 @@
 import Foundation
 
 /// 天気予報データ
-struct WeatherReport: Codable {
+struct WeatherReport: Decodable {
     let weather: Weather
     let maxTemp: Int
     let minTemp: Int

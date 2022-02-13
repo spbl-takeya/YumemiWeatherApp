@@ -44,6 +44,7 @@ class PopupViewController: UIViewController {
 
         //ViewController に遷移
         let viewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
     }
 

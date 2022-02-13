@@ -41,6 +41,10 @@ class PopupViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         print(#function)
         super.viewDidAppear(animated)
+
+        //ViewController に遷移
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        self.present(viewController, animated: true, completion: nil)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

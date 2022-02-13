@@ -9,12 +9,49 @@ import UIKit
 
 class PopupViewController: UIViewController {
 
+    // MARK: Lifecycle
+
+    override func loadView() {
+        print(#function)
+        super.loadView()
+    }
+
     override func viewDidLoad() {
+        print(#function)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        print(#function)
+        super.viewWillAppear(animated)
+    }
+
+    override func viewWillLayoutSubviews() {
+        print(#function)
+        super.viewWillLayoutSubviews()
+    }
+
+    override func viewDidLayoutSubviews() {
+        print(#function)
+        super.viewDidLayoutSubviews()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        print(#function)
+        super.viewDidAppear(animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        print(#function)
+        super.viewWillDisappear(animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        print(#function)
+        super.viewDidDisappear(animated)
+    }
 
     /*
     // MARK: - Navigation

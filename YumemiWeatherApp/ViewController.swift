@@ -135,4 +135,8 @@ class ViewController: UIViewController {
             print("\(error)")
         }
     }
+
+    @IBAction func closeScreen(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }

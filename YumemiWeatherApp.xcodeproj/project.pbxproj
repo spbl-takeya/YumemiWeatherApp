@@ -111,12 +111,12 @@
 				B888A0D127A7768C0024592C /* AppDelegate.swift */,
 				B888A0D327A7768C0024592C /* SceneDelegate.swift */,
 				B888A0D527A7768C0024592C /* ViewController.swift */,
+				B88DF7A727B974B0001BFA2D /* PopupViewController.swift */,
 				B88DF79D27B75981001BFA2D /* WeatherReport.swift */,
 				B888A0D727A7768C0024592C /* Main.storyboard */,
 				B888A0DA27A7768E0024592C /* Assets.xcassets */,
 				B888A0DC27A7768E0024592C /* LaunchScreen.storyboard */,
 				B888A0DF27A7768E0024592C /* Info.plist */,
-				B88DF7A727B974B0001BFA2D /* PopupViewController.swift */,
 			);
 			path = YumemiWeatherApp;
 			sourceTree = "<group>";

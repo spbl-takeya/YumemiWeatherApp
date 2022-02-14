@@ -17,12 +17,30 @@ class ViewController: UIViewController {
 
 
     @IBOutlet weak var weatherImage: UIImageView!
+    @IBOutlet weak var minTemperature: UILabel!
+    @IBOutlet weak var maxTemperature: UILabel!
 
     @IBAction func reloadButton(_ sender: Any) {
         do {
-            let weatherString = try YumemiWeather.fetchWeather(at: "tokyo")
-            print(weatherString)
-            weatherImage.image = getImage(weather: weatherString)
+            //Request: params
+            let params = [
+                "area": "tokyo",
+                "date": "2020-04-01T12:00:00+09:00"
+            ]
+            let jsonData = try! JSONSerialization.data(withJSONObject: params, options: [])
+            let jsonString = String(bytes: jsonData, encoding: .utf8)!
+
+            let jsonResponseString = try YumemiWeather.fetchWeather(jsonString)
+            print(jsonResponseString)
+
+            //Response: decode
+            let data: Data? = jsonResponseString.data(using: .utf8)
+            let jsonObject = try! JSONSerialization.jsonObject(with: data!, options: []) as! Dictionary<String, Any>
+
+            //Render
+            weatherImage.image = getImage(weather: jsonObject["weather"] as! String)
+            minTemperature.text = String(jsonObject["min_temp"] as! Int)
+            maxTemperature.text = String(jsonObject["max_temp"] as! Int)
         } catch let weatherError as YumemiWeatherError {
             //Recoverable error
             let errorMessage = getErrorMessage(from: weatherError)

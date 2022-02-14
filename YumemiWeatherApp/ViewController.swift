@@ -21,46 +21,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    // MARK: IBAction
-    @IBAction func reloadButton(_ sender: Any) {
-        do {
-            //Request: encode
-            let params = FetchWeatherParam(area: "tokyo", date: "2020-04-01T12:00:00+09:00")
-            let jsonData = try! JSONEncoder().encode(params)
-            let jsonString = String(bytes: jsonData, encoding: .utf8)!
-
-            let jsonResponseString = try YumemiWeather.fetchWeather(jsonString)
-            print(jsonResponseString)
-
-            //Response: decode
-            let data: Data? = jsonResponseString.data(using: .utf8)
-            let weatherReport = try JSONDecoder().decode(WeatherReport.self, from: data!)
-
-            //Render
-            renderWeatherReport(weatherReport)
-        } catch let weatherError as YumemiWeatherError {
-            //Recoverable error
-            let errorMessage = getErrorMessage(from: weatherError)
-            showErrorAlert(errorMessage: errorMessage)
-        } catch is EncodingError {
-            //Recoverable error?
-            //本アプリはリクエストパラメーターをアプリ内で生成しているので、エンコードエラーは Logic failure になると思うので、このルートを作るべきでないと思う
-            //※もしリクエストパラメーターの元データが外部サービスから取得しているのなら、アプリを終了させるのはおかしいと思うので Recoverable error にする
-            //今回は練習がてらルートを作ってみた
-            let errorMessage = "データをエンコードできませんでした。"
-            showErrorAlert(errorMessage: errorMessage)
-        } catch is DecodingError {
-            //Recoverable error
-            //外部サービスのせいでアプリを終了させるのもおかしいと思うので Recoverable error とする
-            //もしAPI側で enum の case が先行して追加された場合はこのルートでエラーを処理する
-            let errorMessage = "データをデコードできませんでした。"
-            showErrorAlert(errorMessage: errorMessage)
-        } catch {
-            // TODO: 例外は2種類のみなのでこのルートは書かなくていいと思ったが、書かないとエラーになる
-            //Recoverable error
-            print("\(error)")
-        }
-    }
 
     // MARK: Methods
 
@@ -131,5 +91,48 @@ class ViewController: UIViewController {
 
         // UIAlertControllerの起動
         present(alertController, animated: true, completion: nil)
+    }
+
+
+    // MARK: IBAction
+
+    @IBAction func reloadButton(_ sender: Any) {
+        do {
+            //Request: encode
+            let params = FetchWeatherParam(area: "tokyo", date: "2020-04-01T12:00:00+09:00")
+            let jsonData = try! JSONEncoder().encode(params)
+            let jsonString = String(bytes: jsonData, encoding: .utf8)!
+
+            let jsonResponseString = try YumemiWeather.fetchWeather(jsonString)
+            print(jsonResponseString)
+
+            //Response: decode
+            let data: Data? = jsonResponseString.data(using: .utf8)
+            let weatherReport = try JSONDecoder().decode(WeatherReport.self, from: data!)
+
+            //Render
+            renderWeatherReport(weatherReport)
+        } catch let weatherError as YumemiWeatherError {
+            //Recoverable error
+            let errorMessage = getErrorMessage(from: weatherError)
+            showErrorAlert(errorMessage: errorMessage)
+        } catch is EncodingError {
+            //Recoverable error?
+            //本アプリはリクエストパラメーターをアプリ内で生成しているので、エンコードエラーは Logic failure になると思うので、このルートを作るべきでないと思う
+            //※もしリクエストパラメーターの元データが外部サービスから取得しているのなら、アプリを終了させるのはおかしいと思うので Recoverable error にする
+            //今回は練習がてらルートを作ってみた
+            let errorMessage = "データをエンコードできませんでした。"
+            showErrorAlert(errorMessage: errorMessage)
+        } catch is DecodingError {
+            //Recoverable error
+            //外部サービスのせいでアプリを終了させるのもおかしいと思うので Recoverable error とする
+            //もしAPI側で enum の case が先行して追加された場合はこのルートでエラーを処理する
+            let errorMessage = "データをデコードできませんでした。"
+            showErrorAlert(errorMessage: errorMessage)
+        } catch {
+            // TODO: 例外は2種類のみなのでこのルートは書かなくていいと思ったが、書かないとエラーになる
+            //Recoverable error
+            print("\(error)")
+        }
     }
 }

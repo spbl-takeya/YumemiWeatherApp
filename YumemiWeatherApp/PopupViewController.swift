@@ -12,34 +12,34 @@ class PopupViewController: UIViewController {
     // MARK: Lifecycle
 
     override func loadView() {
-        print(#function)
+        print("[lifecycle]", #function)
         super.loadView()
     }
 
     override func viewDidLoad() {
-        print(#function)
+        print("[lifecycle]", #function)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print(#function)
+        print("[lifecycle]", #function)
         super.viewWillAppear(animated)
     }
 
     override func viewWillLayoutSubviews() {
-        print(#function)
+        print("[lifecycle]", #function)
         super.viewWillLayoutSubviews()
     }
 
     override func viewDidLayoutSubviews() {
-        print(#function)
+        print("[lifecycle]", #function)
         super.viewDidLayoutSubviews()
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        print(#function)
+        print("[lifecycle]", #function)
         super.viewDidAppear(animated)
 
         //ViewController に遷移
@@ -49,12 +49,12 @@ class PopupViewController: UIViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        print(#function)
+        print("[lifecycle]", #function)
         super.viewWillDisappear(animated)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        print(#function)
+        print("[lifecycle]", #function)
         super.viewDidDisappear(animated)
     }
 

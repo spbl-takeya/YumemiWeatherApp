@@ -34,3 +34,11 @@ https://qiita.com/watanave/items/1cefa5aae18f5141c426
     - ex. Array のインデックスがはみ出てしまった場合や、 nil が入っている Optional に対して Forced unwrapping を実行してしまった場合
     - 満たすべき前提条件を `precondition()` で表す
     - `precondition` は `-Ounchecked` でビルドすると無視され、実行時のオーバーヘッドをなくすことができる
+
+## UIViewControllerのライフサイクル
+- https://qiita.com/motokiee/items/0ca628b4cc74c8c5599d
+- 画面遷移のパターン、画面に引数の渡し方
+    - 今後使えそう
+    - https://www.fuwamaki.com/article/154
+- フルスクリーン
+    - https://qiita.com/akatsuki174/items/fd74cb1e08b70da5e4fd

@@ -10,24 +10,23 @@ import YumemiWeather
 
 class ViewController: UIViewController {
 
+    // MARK: Properties
+    @IBOutlet weak var weatherImage: UIImageView!
+    @IBOutlet weak var minTemperature: UILabel!
+    @IBOutlet weak var maxTemperature: UILabel!
+
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
-    @IBOutlet weak var weatherImage: UIImageView!
-    @IBOutlet weak var minTemperature: UILabel!
-    @IBOutlet weak var maxTemperature: UILabel!
-
+    // MARK: IBAction
     @IBAction func reloadButton(_ sender: Any) {
         do {
-            //Request: params
-            let params = [
-                "area": "tokyo",
-                "date": "2020-04-01T12:00:00+09:00"
-            ]
-            let jsonData = try! JSONSerialization.data(withJSONObject: params, options: [])
+            //Request: encode
+            let params = FetchWeatherParam(area: "tokyo", date: "2020-04-01T12:00:00+09:00")
+            let jsonData = try! JSONEncoder().encode(params)
             let jsonString = String(bytes: jsonData, encoding: .utf8)!
 
             let jsonResponseString = try YumemiWeather.fetchWeather(jsonString)
@@ -35,15 +34,26 @@ class ViewController: UIViewController {
 
             //Response: decode
             let data: Data? = jsonResponseString.data(using: .utf8)
-            let jsonObject = try! JSONSerialization.jsonObject(with: data!, options: []) as! Dictionary<String, Any>
+            let weatherReport = try JSONDecoder().decode(WeatherReport.self, from: data!)
 
             //Render
-            weatherImage.image = getImage(weather: jsonObject["weather"] as! String)
-            minTemperature.text = String(jsonObject["min_temp"] as! Int)
-            maxTemperature.text = String(jsonObject["max_temp"] as! Int)
+            renderWeatherReport(weatherReport)
         } catch let weatherError as YumemiWeatherError {
             //Recoverable error
             let errorMessage = getErrorMessage(from: weatherError)
+            showErrorAlert(errorMessage: errorMessage)
+        } catch is EncodingError {
+            //Recoverable error?
+            //本アプリはリクエストパラメーターをアプリ内で生成しているので、エンコードエラーは Logic failure になると思うので、このルートを作るべきでないと思う
+            //※もしリクエストパラメーターの元データが外部サービスから取得しているのなら、アプリを終了させるのはおかしいと思うので Recoverable error にする
+            //今回は練習がてらルートを作ってみた
+            let errorMessage = "データをエンコードできませんでした。"
+            showErrorAlert(errorMessage: errorMessage)
+        } catch is DecodingError {
+            //Recoverable error
+            //外部サービスのせいでアプリを終了させるのもおかしいと思うので Recoverable error とする
+            //もしAPI側で enum の case が先行して追加された場合はこのルートでエラーを処理する
+            let errorMessage = "データをデコードできませんでした。"
             showErrorAlert(errorMessage: errorMessage)
         } catch {
             // TODO: 例外は2種類のみなのでこのルートは書かなくていいと思ったが、書かないとエラーになる
@@ -52,32 +62,37 @@ class ViewController: UIViewController {
         }
     }
 
-    // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
+    // MARK: Methods
+
+    /// 天気予報を描画する
+    /// - Parameter json: 天気予報データ
+    /// - Returns: なし
+    func renderWeatherReport(_ weatherReport: WeatherReport) {
+        weatherImage.image = getImage(weather: weatherReport.weather)
+        minTemperature.text = String(weatherReport.minTemp)
+        maxTemperature.text = String(weatherReport.maxTemp)
+    }
+
     /// 天気の画像を返す
     /// - Parameter weather: 天気を示す文字列
     /// - Returns: UIImageオブジェクト
-    func getImage(weather: String) -> UIImage? {
+    func getImage(weather: Weather) -> UIImage? {
+        // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
         switch weather {
-        // TODO: enumを導入してみたが、結局rawValueとの比較になっていてdefaultを削除できない
-        // (Codableの導入で直接enumに変換できるようになればenumで比較できてdefaultを削除できる?)
-        case Weather.sunny.rawValue:
+        case Weather.sunny:
             var image = UIImage(named: "sun")
             image = image?.withTintColor(.red)
             return image
-        case Weather.cloudy.rawValue:
+        case Weather.cloudy:
             var image = UIImage(named: "cloud")
             image = image?.withTintColor(.gray)
             return image
-        case Weather.rainy.rawValue:
+        case Weather.rainy:
             var image = UIImage(named: "umbrella")
             image = image?.withTintColor(.blue)
             return image
-        default:
-            // TODO: Optionalとか勉強した方がよさそう
-            return nil
         }
     }
-
     
     /// YumemiのAPIから返されたエラーからエラーメッセージを取得する
     /// - Parameter error: エラー
@@ -85,14 +100,13 @@ class ViewController: UIViewController {
     func getErrorMessage(from error: YumemiWeatherError) -> String {
         switch(error) {
         case .invalidParameterError:
-            //YumemiWeatherの実装をみると、JSON版APIでないと返されないっぽい
+            //YumemiWeatherの実装をみると、JSON版APIでないと返されない
             return "パラメーターが不正です。"
         case .unknownError:
             return "不明なエラーです。"
         }
     }
 
-    
     /// エラーメッセージをアラート表示する
     /// - Parameter errorMessage: エラーメッセージ
     /// - Returns: なし
@@ -118,12 +132,4 @@ class ViewController: UIViewController {
         // UIAlertControllerの起動
         present(alertController, animated: true, completion: nil)
     }
-}
-
-// TODO: enumは単独のファイルなどに切り出した方がいいのか?
-/// 天気
-enum Weather: String {
-    case sunny = "sunny"
-    case cloudy = "cloudy"
-    case rainy = "rainy"
 }

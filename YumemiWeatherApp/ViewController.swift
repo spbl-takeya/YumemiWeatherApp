@@ -108,13 +108,13 @@ class ViewController: UIViewController {
     @objc private func notified(notification: Notification) {
         print("\(#function): \(notification)")
         // TODO: 引数はダミー
-        reloadButton(NSObject())
+        didTapReloadButton(NSObject())
     }
 
 
     // MARK: IBAction
 
-    @IBAction private func reloadButton(_ sender: Any) {
+    @IBAction private func didTapReloadButton(_ sender: Any) {
         do {
             //Request: encode
             let params = FetchWeatherParam(area: "tokyo", date: "2020-04-01T12:00:00+09:00")
@@ -154,7 +154,7 @@ class ViewController: UIViewController {
         }
     }
 
-    @IBAction private func closeScreen(_ sender: Any) {
+    @IBAction private func didTapCloseButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 }

@@ -22,18 +22,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    //SceneDelegateがあるとそちら側が呼ばれるので、こちらは呼ばれない
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("[lifecycle (App)]", #function)
     }
 
+    //SceneDelegateがあるとそちら側が呼ばれるので、こちらは呼ばれない
     func applicationWillResignActive(_ application: UIApplication) {
         print("[lifecycle (App)]", #function)
     }
 
+    //SceneDelegateがあるとそちら側が呼ばれるので、こちらは呼ばれない
     func applicationDidEnterBackground(_ application: UIApplication) {
         print("[lifecycle (App)]", #function)
     }
 
+    //SceneDelegateがあるとそちら側が呼ばれるので、こちらは呼ばれない
     func applicationWillEnterForeground(_ application: UIApplication) {
         print("[lifecycle (App)]", #function)
     }

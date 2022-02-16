@@ -11,9 +11,9 @@ import YumemiWeather
 class ViewController: UIViewController {
 
     // MARK: Properties
-    @IBOutlet weak var weatherImage: UIImageView!
-    @IBOutlet weak var minTemperature: UILabel!
-    @IBOutlet weak var maxTemperature: UILabel!
+    @IBOutlet private weak var weatherImage: UIImageView!
+    @IBOutlet private weak var minTemperature: UILabel!
+    @IBOutlet private weak var maxTemperature: UILabel!
 
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     /// 天気の画像を返す
     /// - Parameter weather: 天気を示す文字列
     /// - Returns: UIImageオブジェクト
-    func getImage(weather: Weather) -> UIImage? {
+    private func getImage(weather: Weather) -> UIImage? {
         // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
         switch weather {
         case Weather.sunny:
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
     /// YumemiのAPIから返されたエラーからエラーメッセージを取得する
     /// - Parameter error: エラー
     /// - Returns: エラーメッセージ
-    func getErrorMessage(from error: YumemiWeatherError) -> String {
+    private func getErrorMessage(from error: YumemiWeatherError) -> String {
         switch(error) {
         case .invalidParameterError:
             //YumemiWeatherの実装をみると、JSON版APIでないと返されない
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
     /// エラーメッセージをアラート表示する
     /// - Parameter errorMessage: エラーメッセージ
     /// - Returns: なし
-    func showErrorAlert(errorMessage: String) {
+    private func showErrorAlert(errorMessage: String) {
         let alertController: UIAlertController =
                     UIAlertController(title: "天気情報の取得に失敗しました",
                               message: errorMessage,
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
 
     // MARK: IBAction
 
-    @IBAction func reloadButton(_ sender: Any) {
+    @IBAction private func reloadButton(_ sender: Any) {
         do {
             //Request: encode
             let params = FetchWeatherParam(area: "tokyo", date: "2020-04-01T12:00:00+09:00")
@@ -136,7 +136,7 @@ class ViewController: UIViewController {
         }
     }
 
-    @IBAction func closeScreen(_ sender: Any) {
+    @IBAction private func closeScreen(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 }

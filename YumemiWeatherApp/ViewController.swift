@@ -136,17 +136,25 @@ class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
 
+
+    /// 監視対象を登録する
     private func addObserver() {
+        //フォアグラウンド復帰イベントを監視
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(type(of: self).notified(notification:)),
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
     }
 
+    /// 監視対象の監視を解除する
+    /// ※呼び出さなくてもいいらしい
     private func removeObserver() {
         NotificationCenter.default.removeObserver(self)
     }
 
+    // `#selector()` に渡したいので `@objc` が必要
+    /// Observerの監視から呼び出された時の処理
+    /// - Parameter notification: 通知内容
     @objc private func notified(notification: Notification) {
         print("\(#function): \(notification)")
         reloadWeatherReport()

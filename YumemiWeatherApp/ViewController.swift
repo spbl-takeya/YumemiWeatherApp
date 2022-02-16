@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     /// 天気予報を描画する
     /// - Parameter json: 天気予報データ
     /// - Returns: なし
-    func renderWeatherReport(_ weatherReport: WeatherReport) {
+    private func renderWeatherReport(_ weatherReport: WeatherReport) {
         weatherImage.image = getImage(weather: weatherReport.weather)
         minTemperature.text = String(weatherReport.minTemp)
         maxTemperature.text = String(weatherReport.maxTemp)

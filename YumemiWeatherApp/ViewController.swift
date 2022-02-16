@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        addObserver()
     }
 
 
@@ -91,6 +92,23 @@ class ViewController: UIViewController {
 
         // UIAlertControllerの起動
         present(alertController, animated: true, completion: nil)
+    }
+
+    private func addObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(type(of: self).notified(notification:)),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
+    }
+
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func notified(notification: Notification) {
+        print("\(#function): \(notification)")
+        // TODO: 引数はダミー
+        reloadButton(NSObject())
     }
 
 

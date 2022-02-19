@@ -1,5 +1,5 @@
 //
-//  PopupViewController.swift
+//  RootViewController.swift
 //  YumemiWeatherApp
 //
 //  Created by Takeya Shimizu on 2022/02/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PopupViewController: UIViewController {
+class RootViewController: UIViewController {
 
     // MARK: Lifecycle
 

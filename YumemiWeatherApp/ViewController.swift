@@ -11,92 +11,23 @@ import YumemiWeather
 class ViewController: UIViewController {
 
     // MARK: Properties
-    @IBOutlet weak var weatherImage: UIImageView!
-    @IBOutlet weak var minTemperature: UILabel!
-    @IBOutlet weak var maxTemperature: UILabel!
+    @IBOutlet private weak var weatherImage: UIImageView!
+    @IBOutlet private weak var minTemperature: UILabel!
+    @IBOutlet private weak var maxTemperature: UILabel!
 
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        addObserver()
     }
 
 
     // MARK: Methods
 
-    /// 天気予報を描画する
-    /// - Parameter json: 天気予報データ
+    /// 天気予報をリロードする
     /// - Returns: なし
-    func renderWeatherReport(_ weatherReport: WeatherReport) {
-        weatherImage.image = getImage(weather: weatherReport.weather)
-        minTemperature.text = String(weatherReport.minTemp)
-        maxTemperature.text = String(weatherReport.maxTemp)
-    }
-
-    /// 天気の画像を返す
-    /// - Parameter weather: 天気を示す文字列
-    /// - Returns: UIImageオブジェクト
-    func getImage(weather: Weather) -> UIImage? {
-        // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
-        switch weather {
-        case Weather.sunny:
-            var image = UIImage(named: "sun")
-            image = image?.withTintColor(.red)
-            return image
-        case Weather.cloudy:
-            var image = UIImage(named: "cloud")
-            image = image?.withTintColor(.gray)
-            return image
-        case Weather.rainy:
-            var image = UIImage(named: "umbrella")
-            image = image?.withTintColor(.blue)
-            return image
-        }
-    }
-    
-    /// YumemiのAPIから返されたエラーからエラーメッセージを取得する
-    /// - Parameter error: エラー
-    /// - Returns: エラーメッセージ
-    func getErrorMessage(from error: YumemiWeatherError) -> String {
-        switch(error) {
-        case .invalidParameterError:
-            //YumemiWeatherの実装をみると、JSON版APIでないと返されない
-            return "パラメーターが不正です。"
-        case .unknownError:
-            return "不明なエラーです。"
-        }
-    }
-
-    /// エラーメッセージをアラート表示する
-    /// - Parameter errorMessage: エラーメッセージ
-    /// - Returns: なし
-    func showErrorAlert(errorMessage: String) {
-        let alertController: UIAlertController =
-                    UIAlertController(title: "天気情報の取得に失敗しました",
-                              message: errorMessage,
-                              preferredStyle: .alert)
-
-        // Default のaction
-        let defaultAction: UIAlertAction =
-                    UIAlertAction(title: "閉じる",
-                          style: .default
-//                          handler:{
-//                            (action:UIAlertAction!) -> Void in
-//                            // 処理
-//                          }
-                    )
-
-        // actionを追加
-        alertController.addAction(defaultAction)
-
-        // UIAlertControllerの起動
-        present(alertController, animated: true, completion: nil)
-    }
-
-
-    // MARK: IBAction
-
-    @IBAction func reloadButton(_ sender: Any) {
+    private func reloadWeatherReport() {
         do {
             //Request: encode
             let params = FetchWeatherParam(area: "tokyo", date: "2020-04-01T12:00:00+09:00")
@@ -136,7 +67,107 @@ class ViewController: UIViewController {
         }
     }
 
-    @IBAction func closeScreen(_ sender: Any) {
+    /// 天気予報を描画する
+    /// - Parameter json: 天気予報データ
+    /// - Returns: なし
+    private func renderWeatherReport(_ weatherReport: WeatherReport) {
+        weatherImage.image = getImage(weather: weatherReport.weather)
+        minTemperature.text = String(weatherReport.minTemp)
+        maxTemperature.text = String(weatherReport.maxTemp)
+    }
+
+    /// 天気の画像を返す
+    /// - Parameter weather: 天気を示す文字列
+    /// - Returns: UIImageオブジェクト
+    private func getImage(weather: Weather) -> UIImage? {
+        // TODO: 画像名とレスポンスを合わせてしまった方が簡単そうだが、あえて変換処理を入れておく
+        switch weather {
+        case Weather.sunny:
+            var image = UIImage(named: "sun")
+            image = image?.withTintColor(.red)
+            return image
+        case Weather.cloudy:
+            var image = UIImage(named: "cloud")
+            image = image?.withTintColor(.gray)
+            return image
+        case Weather.rainy:
+            var image = UIImage(named: "umbrella")
+            image = image?.withTintColor(.blue)
+            return image
+        }
+    }
+    
+    /// YumemiのAPIから返されたエラーからエラーメッセージを取得する
+    /// - Parameter error: エラー
+    /// - Returns: エラーメッセージ
+    private func getErrorMessage(from error: YumemiWeatherError) -> String {
+        switch(error) {
+        case .invalidParameterError:
+            //YumemiWeatherの実装をみると、JSON版APIでないと返されない
+            return "パラメーターが不正です。"
+        case .unknownError:
+            return "不明なエラーです。"
+        }
+    }
+
+    /// エラーメッセージをアラート表示する
+    /// - Parameter errorMessage: エラーメッセージ
+    /// - Returns: なし
+    private func showErrorAlert(errorMessage: String) {
+        let alertController: UIAlertController =
+                    UIAlertController(title: "天気情報の取得に失敗しました",
+                              message: errorMessage,
+                              preferredStyle: .alert)
+
+        // Default のaction
+        let defaultAction: UIAlertAction =
+                    UIAlertAction(title: "閉じる",
+                          style: .default
+//                          handler:{
+//                            (action:UIAlertAction!) -> Void in
+//                            // 処理
+//                          }
+                    )
+
+        // actionを追加
+        alertController.addAction(defaultAction)
+
+        // UIAlertControllerの起動
+        present(alertController, animated: true, completion: nil)
+    }
+
+
+    /// 監視対象を登録する
+    private func addObserver() {
+        //フォアグラウンド復帰イベントを監視
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(type(of: self).notified(notification:)),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
+    }
+
+    /// 監視対象の監視を解除する
+    /// ※呼び出さなくてもいいらしい
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // `#selector()` に渡したいので `@objc` が必要
+    /// Observerの監視から呼び出された時の処理
+    /// - Parameter notification: 通知内容
+    @objc private func notified(notification: Notification) {
+        print("\(#function): \(notification)")
+        reloadWeatherReport()
+    }
+
+
+    // MARK: IBAction
+
+    @IBAction private func didTapReloadButton(_ sender: Any) {
+        reloadWeatherReport()
+    }
+
+    @IBAction private func didTapCloseButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 }

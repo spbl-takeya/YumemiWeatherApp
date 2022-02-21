@@ -1,5 +1,5 @@
 //
-//  Weather.swift
+//  WeatherReport.swift
 //  YumemiWeatherApp
 //
 //  Created by Takeya Shimizu on 2022/02/12.

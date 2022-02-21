@@ -59,7 +59,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Close"/>
                                 <connections>
-                                    <action selector="closeScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h68-Df-hrq"/>
+                                    <action selector="didTapCloseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zEz-nM-Dwg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U2u-I1-ugC">
@@ -67,7 +67,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Reload"/>
                                 <connections>
-                                    <action selector="reloadButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ify-iR-6s0"/>
+                                    <action selector="didTapReloadButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kH8-1s-JMx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -93,10 +93,10 @@
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="97.767857142857139"/>
         </scene>
-        <!--Popup View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="gPS-rb-H7z">
             <objects>
-                <viewController id="bLr-fx-esC" customClass="PopupViewController" customModule="YumemiWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bLr-fx-esC" customClass="RootViewController" customModule="YumemiWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T7p-Cd-GsV">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
